@@ -19,7 +19,11 @@ function App() {
       setLoading(false)
       setNextPageUrl(res.data.next)
       setPrevPageUrl(res.data.previous)
-      setPokemon(res.data.results.map(p => p.name))
+      setPokemon(res.data.results.map(p => {
+        let { url } = p;
+        let pokedexNumber = url.slice(url.lastIndexOf('n/') + 2, url.lastIndexOf("/"));
+        return `${pokedexNumber} => ${p.name}`
+        }))
     })
 
     return () => cancel()
